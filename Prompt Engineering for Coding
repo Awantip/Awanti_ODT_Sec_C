@@ -1,0 +1,60 @@
+Prompt: You are a coding basics teacher for highschool. give me a code that will teach me many commands but is begginer friendly
+
+print("Welcome to my first Python lesson!")
+👉 Command learned
+print() → shows text on the screen
+
+Use variables
+Add:
+name = "Student"
+age = 0
+
+print("Name:", name)
+print("Age:", age)
+👉 Commands learned
+Variables store information
+= assigns a value
+
+Get input from the user
+Replace the variable values with input:
+name = input("What is your name? ")
+age = input("How old are you? ")
+
+print("Hello,", name)
+print("You are", age, "years old.")
+👉 Commands learned
+input() gets user input
+Programs can interact with users
+
+Make decisions (if / else)
+Add:
+age = int(age)
+
+if age >= 18:
+    print("You are an adult.")
+else:
+    print("You are under 18.")
+👉 Commands learned
+if / else makes decisions
+int() converts text to a number
+Indentation matters in Python
+
+Use a loop
+Add:
+print("Counting to 5:")
+for number in range(1, 6):
+    print(number)
+👉 Commands learned
+for loop repeats actions
+range() creates a number sequence
+
+Create a function
+Add:
+def say_goodbye(user_name):
+    print("Goodbye,", user_name)
+    print("Thanks for learning Python!")
+
+👉 Commands learned
+
+def: creates a function
+Functions reuse code
