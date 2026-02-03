@@ -1,0 +1,90 @@
+from machine import Pin,TouchPad
+import time
+t_pin= TouchPad(Pin(15, Pin.IN))
+ledy= Pin(12, Pin.OUT)
+ledr= Pin(14, Pin.OUT)
+ledg= Pin(4, Pin.OUT)    
+    
+'''while True:
+    t_value= t_pin.read()
+    if t_value<300:
+        ledr.on()
+        ledy.off()
+        time.sleep(.5)
+    ledy.on()
+    time.sleep(.5)
+    ledr.off()
+    print(t_value)
+    time.sleep(.2)
+
+while True:
+    t_value= t_pin.read()
+    if t_value<300:
+        ledr.on()
+        ledy.off()
+    else:
+        ledy.on()
+        ledr.off()
+    print(t_value)
+    time.sleep(.2)
+    
+for i in range (5):
+    i= ledr.on
+    if i>5:
+        break
+
+while True:
+    t_value= t_pin.read()
+    if t_value<300:
+        ledy.off()
+        ledr.on()
+        time.sleep(.5)
+        ledr.off()
+        ledg.on()
+        time.sleep(.5)
+        ledg.off()
+        
+    else:
+        ledy.on()
+        ledr.off()
+        ledg.off()
+    print(t_value)
+    time.sleep(.2)
+
+n=5
+while n>0:
+    t_value= t_pin.read()
+    if t_value<300:
+        ledr.on()
+        ledy.off()
+
+    else:
+        ledy.on()
+        ledr.off()
+        
+    print(t_value)
+    time.sleep(.2)
+n=n-1'''
+
+n=5
+red_on= False
+while n>0:
+    t_value= t_pin.read()
+    if t_value<300:
+        ledr.on()
+        ledy.off()
+        print('Touched')
+        
+        if not red_on:
+            n=n-1
+            red_on = True
+            print("Count Down:", n)
+            
+    else:
+        ledy.on()
+        ledr.off()
+        red_on= False
+        
+    print(t_value)
+    time.sleep(.2)
+
