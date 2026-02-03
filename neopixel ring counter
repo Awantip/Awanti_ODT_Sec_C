@@ -1,0 +1,27 @@
+# Counting number of times sensor gets obstructed and shows it through light on the neopixel
+from machine import Pin
+import time
+import random
+import neopixel
+np= neopixel.NeoPixel(Pin(4), 16)
+pb= Pin(15, Pin.IN)
+ir= Pin(22, Pin.IN)
+
+i=0
+t=15
+while True:
+        ir2=ir.value()
+        if ir2==0:
+            np[t]=(0,0,0)
+            np.write()
+            time.sleep(0.2)
+            np[i]=( random.randint(0,255),random.randint(0,255),random.randint(0,255))
+            np.write()
+            time.sleep(0.2)
+            i+=1
+            t+=1
+            if i==16:
+                i=0
+            if t==16:
+                t=0
+            print('i=',i,'t=',t)
