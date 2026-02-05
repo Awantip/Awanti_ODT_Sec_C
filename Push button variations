@@ -1,0 +1,69 @@
+#PUSH BUTTON
+from machine import Pin
+import time
+pb= Pin(15, Pin.IN)
+ledg= Pin(4, Pin.OUT)
+ledr= Pin(14, Pin.OUT)
+ledy= Pin(12, Pin.OUT)
+
+#detect button state
+while True:
+    print (pb.value())
+    time.sleep(.5)
+
+#pb value reflected as words
+while True:
+    if pb.value()==1:
+        print('open')
+    else:
+        print('closed')
+    time.sleep(1)
+
+#led with pb
+while True:
+    if pb.value()==1:
+        ledg.off()
+    else:
+        ledg.on()
+    time.sleep(.2)
+
+#double click trialpt 1
+n=1
+while n<20:
+    if pb.value()==1:
+            ledg.off()
+            ledr.off()
+            ledy.off()
+            print('count', n)
+                
+    else:
+        if n%2!=0:
+            ledg.off()
+            ledr.off()
+            ledy.off()
+            n+=1
+            print('count', n)
+
+        if n%2==0:
+            ledg.on()
+            time.sleep(.2)
+            ledg.off()
+            ledy.on()
+            time.sleep(.2)
+            ledy.off()
+            ledr.on()
+            time.sleep(.2)
+            ledr.off()
+            n+=1      
+            print('count', n)
+    
+#counter with pb    
+while True:
+    n= pb.value
+    while n<10:
+        while n%2==0:
+            ledg.on()
+            n=n+1
+        while n%2!=0:
+            ledr.on()
+            n=n+1
