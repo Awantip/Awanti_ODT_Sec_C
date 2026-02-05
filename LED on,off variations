@@ -1,0 +1,98 @@
+#LED
+from machine import Pin,
+import time
+a= Pin(13, Pin.OUT)
+b= Pin(12, Pin.OUT)
+c= Pin(15, Pin.OUT)
+d= Pin(5, Pin.OUT)
+
+#blink led x times
+'''a.on()
+time.sleep(1)
+a.off()
+time.sleep(1)
+a.on()
+time.sleep(1)
+a.off()
+time.sleep(1)
+a.on()
+time.sleep(1)
+a.off()
+time.sleep(1)
+
+#for loop
+for i in range (38):
+    if i%2==0:
+        a.on()
+        time.sleep(1)
+        a.off()
+        time.sleep(1)
+    else:
+        b.on()
+        time.sleep(1)
+        b.off()
+        time.sleep(1)
+#while loop
+c=0
+while n<10:
+    a.on()
+    time.sleep(1)
+    a.off()
+    time.sleep(1)
+    n=n+1
+
+#alternate blinking 2 leds
+n=0
+while n<30:
+    while n%2==0:
+        a.on()
+        time.sleep(.5)
+        a.off()
+        n=n+1
+    while n%2!=0:
+        b.on()
+        time.sleep(.5)
+        b.off()
+        n=n+1
+     
+#alternate blinking 4 leds
+n=100
+while 0<=n<101:
+    while n%4==1:
+        a.on()
+        time.sleep(.5)
+        a.off()
+        n=n-1
+    while n%4==2:
+        b.on()
+        time.sleep(.5)
+        b.off()
+        n=n-1
+    while n%4==3:
+        c.on()
+        time.sleep(.5)
+        c.off()
+        n=n-1
+    while n%4==0:
+        d.on()
+        time.sleep(.5)
+        d.off()
+        n=n-1'''
+        
+from machine import Pin
+import time
+ledr= Pin(14, Pin.OUT)
+ledy= Pin(12, Pin.OUT)
+c=0
+while c<30:
+    while c%4==0:
+        ledr.on()
+        time.sleep(.5)
+        ledr.off()
+        c=c+1
+    while c%4!=0:
+        ledy.on()
+        time.sleep(.5)
+        ledy.off()
+        c=c+1
+    print(c) 
