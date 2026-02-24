@@ -1,0 +1,155 @@
+# Final Adventure Board game code
+from machine import PWM, Pin, TouchPad
+import time, neopixel
+
+
+np=neopixel.NeoPixel(Pin(23), 16)
+sm=PWM(22)
+ldr=Pin(35, Pin.IN, Pin.PULL_UP)
+river=Pin(14, Pin.OUT)
+rivreed=TouchPad(Pin(27,Pin.IN,Pin.PULL_UP))
+smreed=TouchPad(Pin(32,Pin.IN,Pin.PULL_UP))
+start=Pin(4, Pin.IN,Pin.PULL_UP)
+stop=Pin(5, Pin.IN)
+pathled=Pin(12, Pin.OUT)
+lapled=Pin(13, Pin.OUT)
+ir=Pin(34, Pin.IN)
+
+
+k,h,u=0,0,0
+lapled.value(0)
+sm.duty(40)
+
+hint=['Take the horse to the river to get some water.','Follow the illuminated path to the canyon.',"Enter 'Wright' on the keyboard.",'Go to Paradise.']
+
+print('\t\t\t\t Instructions')
+print('\t1. Press start to begin.')
+print('\t2. You will get a clue for each step.')
+print('\t3. You may reset the game at any point.')
+print('\t4. You get 1 hint which can be activated by pressing the start and stop buttons together - use it wisely.')
+print('\t5. Good luck and remember to always be kind!')
+
+
+
+while True:
+    time.sleep(1)
+    if start.value()==0 and stop.value()==0:
+        if h==0:
+            print('\t\t\tHint :',hint[k])
+            h=1
+        else:
+            print('\t\t\tSorry you have already used your hint.')
+    elif (start.value()==1 and stop.value()==0) or u=='g':
+        print('\t\t\t\tResetting Game')
+        k,h,u=0,0,0
+        sm.duty(40)
+        lapled.value(0)
+        pathled.value(0)
+        for i in range (16):
+            np[i]=(0,0,0)
+            np.write()
+    while k==0:
+        if start.value()==0:
+            for j in range(2):
+                for i in range(16):
+                    time.sleep(.05)
+                    np[i]=(0, 0, 255)
+                    np.write()
+                for i in range(16):
+                    time.sleep(.05)
+                    np[i]=(0, 0, 0)
+                    np.write()
+                time.sleep(.05)
+            lapled.value(1)
+            print('\n\n\t\t\t\tWelcome')
+            print('\t\t\t\t***\n\n')
+            
+            time.sleep(1)
+            print('\t\t\tHelp!Quench my thirst!\n\n')
+            time.sleep(3)
+            lapled.value(0)
+            k=1
+            
+    while k==1:        
+        if rivreed.read()<=300:
+            river.value(1)
+            for i in range(4):
+                np[i]=(0,0,255)
+                time.sleep(.2)
+                np.write()
+            time.sleep(1)
+
+            lapled.value(1)
+            print('\t\t\tYou have been kind.')
+            time.sleep(0.2)
+            print('\t\t\t You have won the companionship of the horse.\n')
+            time.sleep(0.2)
+            print('\t\t\tThe path of the kind shall always be illuminated.')
+            pathled.value(1)
+            time.sleep(1)
+            lapled.value(0)
+            k=2
+        
+    while k==2:
+        if smreed.read()<=300:
+            river.value(0)
+            for i in range(4,8):
+                np[i]=(0,0,255)
+                time.sleep(.2)
+                np.write()
+
+            lapled.value(1)
+            print('\t\t\tYou have reached the fountain of immortality.')
+            time.sleep(0.2)
+            print('\t\t\tAll but one gryphon has been lined with a deadly poison.\n')
+            time.sleep(1)
+            t=1
+            while True:
+                print('\t\t\tHORSE : Two brothers who were never wrong, took to air without wings of their own. What is their last name?')
+                a=input('Enter answer : ')
+                if a=='wright' or a=='Wright' or a=='WRIGHT' or a=='wright':
+                    sm.duty(100)
+                    time.sleep(0.2)
+                    sm.duty(40)
+                    time.sleep(0.2)
+                    sm.duty(78)
+                    break
+                print('\t\t\t\tIncorrect answer\n\t\t\t\tPlease try again')
+        
+            lapled.value(0)
+            k=3
+    while k==3:
+        if ldr.value()==1:
+            for i in range(8, 12):
+                np[i]=(0,0,255)
+                time.sleep(.2)
+                np.write()   
+            lapled.value(1)
+            print('\t\t\tYou may now go to paradise.')
+            time.sleep(3)
+            
+            lapled.value(0)
+            k=4
+    while k==4:
+        if ir.value()==0:
+            for i in range(12, 16):
+                np[i]=(0,0,255)
+                time.sleep(.2)
+                np.write()
+            lapled.value(1)
+            print('\t\t\tYou have reached paradise!')
+            c,d=[0,2,4,6,8,10,12,14],[1,3,5,7,9,11,13,15]
+            while True:
+                for i in range(0,15, 2):
+                    np[i]=(128, 0, 128)
+                    np[i+1]=(147, 112, 219)
+                np.write()
+                time.sleep(.2)
+                for i in range(0,15, 2):
+                    np[i+1]=(128, 0, 128)
+                    np[i]=(147, 112, 219)
+                np.write()
+                time.sleep(.2)
+            k,u=0,'g'
+            lapled.value(0)
+            time.sleep(30)
